@@ -24,10 +24,8 @@ if [ $source == "CSIRO" ]; then
 
 else
     
-    echo "PAYU restart not available. Please use CSIRO as the source in $0"
-    exit 1
     # Payu restart directory to copy
-    export payu_source=/scratch/w35/saw562/access-esm/archive/esm-historical/restart001
+    export payu_source=/g/data/access/payu/access-esm/restart/historical/PI-01.astart-05410101
 
     # Call the main warm-start script
     scripts/warm-start-payu.sh
