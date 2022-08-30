@@ -17,13 +17,15 @@ if [ $source == "CSIRO" ]; then
     user=cm2704
     export expname=PI-01            # Source experiment - PI pre-industrial, HI historical
     export source_year=541          # Change this to create different ensemble members
-    export csiro_source=/g/data/$project/$user/archive/$expname/restart
+    export csiro_source=/g/data/$project/$user/archive/ACCESS-ESM1-5/$expname/restart
 
     # Call the main warm-start script
     scripts/warm-start-csiro.sh
 
 else
     
+    echo "PAYU restart not available. Please use CSIRO as the source in $0"
+    exit 1
     # Payu restart directory to copy
     export payu_source=/scratch/w35/saw562/access-esm/archive/esm-historical/restart001
 
