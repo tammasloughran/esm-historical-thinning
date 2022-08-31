@@ -16,7 +16,7 @@ Create a directory in which to keep the model configurations:
 
 Set up a warm start from a CSIRO run (see the script for details):
 
-    ./warm_start.sh
+    ./warm-start.sh
 
 Run the model:
 
