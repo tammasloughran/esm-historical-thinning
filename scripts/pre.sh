@@ -17,7 +17,9 @@ set -eu
 lu_file=$1
 
 # Get the current year from field t2_year of the restart file
-year=$(mule-pumf --component fixed_length_header work/atmosphere/restart_dump.astart | sed -n 's/.*t2_year\s*:\s*//p')
+#year=$(mule-pumf --component fixed_length_header work/atmosphere/restart_dump.astart | sed -n 's/.*t2_year\s*:\s*//p')
+source scripts/utils.sh
+year=$(get_payu_start_year)
 
 # If that year is in the land use file, save a single timestep to a new netcdf file
 if cdo selyear,$(( year )) -chname,fraction,field1391 $lu_file work/atmosphere/land_frac.nc; then
