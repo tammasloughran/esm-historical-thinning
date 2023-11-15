@@ -9,9 +9,7 @@
 
 source  /etc/profile.d/modules.sh
 module use /g/data/hh5/public/modules
-module use ~access/modules/pythonlib
 module load conda/analysis3
-module load umfile_utils
 
 set -eu
 
@@ -32,8 +30,12 @@ if cdo selyear,$(( year )) -chname,fraction,field1391 $lu_file work/atmosphere/l
 fi
 
 # Update the forest thinning data in teh restart file.
-python /g/data/p66/txz599/ACCESSESM1/scripts/um_replace_field_multilevel.py \
+module load python2/2.7.16
+module use ~access/modules
+module load pythonlib/umfile_utils
+python2 scripts/um_replace_field_multilevel.py \
         -v 916 \
         -V thinRatio \
         -n /g/data/p66/txz599/data/luc_hist_thinning/cableCMIP6_thin_${year}.nc \
         work/atmosphere/restart_dump.astart
+module unload python2
