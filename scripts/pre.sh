@@ -9,7 +9,9 @@
 
 source  /etc/profile.d/modules.sh
 module use /g/data/hh5/public/modules
+module use ~access/modules/pythonlib
 module load conda/analysis3
+module load umfile_utils
 
 set -eu
 
@@ -25,6 +27,13 @@ if cdo selyear,$(( year )) -chname,fraction,field1391 $lu_file work/atmosphere/l
     # Back up the original restart file
     mv work/atmosphere/restart_dump.astart work/atmosphere/restart_dump.astart.orig
 
-    # Use the CSIRO script to set the land use
+    # Use the CSIRO script to set the land-use
     python scripts/update_cable_vegfrac.py -i work/atmosphere/restart_dump.astart.orig -o work/atmosphere/restart_dump.astart -f work/atmosphere/land_frac.nc
 fi
+
+# Update the forest thinning data in teh restart file.
+python /g/data/p66/txz599/ACCESSESM1/scripts/um_replace_field_multilevel.py \
+        -v 916 \
+        -V thinRatio \
+        -n /g/data/p66/txz599/data/luc_hist_thinning/cableCMIP6_thin_${year}.nc \
+        work/atmosphere/restart_dump.astart
