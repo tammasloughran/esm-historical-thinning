@@ -35,9 +35,15 @@ fi
 module load python2/2.7.16
 module use ~access/modules
 module load pythonlib/umfile_utils
+python2 ~access/apps/pythonlib/umfile_utils/access_cm2/um_fields_subset.py \
+        -p \
+        -i work/atmosphere/restart_dump.astart \
+        -o temp.astart
+
 python2 scripts/um_replace_field_multilevel.py \
         -v 916 \
         -V thinRatio \
         -n /g/data/p66/txz599/data/luc_hist_thinning/cableCMIP6_thin_${year}.nc \
-        work/atmosphere/restart_dump.astart
+        temp.astart
+mv temp.astart work/atmosphere/restart_dump.astart
 module unload python2
